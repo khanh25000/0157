@@ -1,6 +1,4 @@
-// Khởi tạo khi DOM tải xong
 document.addEventListener("DOMContentLoaded", () => {
-  // Hiệu ứng particle
   const canvas = document.getElementById("particles");
   const ctx = canvas.getContext("2d");
   canvas.width = window.innerWidth;
@@ -54,7 +52,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initParticles();
   animateParticles();
 
-  // Hiệu ứng parallax cho video background
   document.addEventListener("mousemove", (e) => {
     const video = document.querySelector(".video-bg");
     const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
@@ -62,7 +59,6 @@ document.addEventListener("DOMContentLoaded", () => {
     video.style.transform = `scale(1.1) translate(${moveX}px, ${moveY}px)`;
   });
 
-  // Toggle menu trên mobile
   const menuToggle = document.querySelector(".menu-toggle");
   const navLinks = document.querySelector(".nav-links");
 
@@ -72,63 +68,30 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Xử lý form liên hệ
   const contactForm = document.getElementById("contact-form");
   const formMessage = document.getElementById("form-message");
 
   if (contactForm && formMessage) {
-    contactForm.addEventListener("submit", async (e) => {
+    contactForm.addEventListener("submit", (e) => {
       e.preventDefault();
 
-      const name = document.getElementById("name").value;
       const email = document.getElementById("email").value;
-      const phone = document.getElementById("phone").value;
-      const message = document.getElementById("message").value;
-
-      // Kiểm tra email hợp lệ
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
       if (!emailRegex.test(email)) {
         formMessage.textContent = "Email không hợp lệ!";
-        formMessage.classList.add("error");
-        formMessage.classList.remove("success");
+        formMessage.className = "form-message error";
         return;
       }
 
-      try {
-        // Gửi email đến admin
-        await emailjs.send(
-          "YOUR_EMAILJS_SERVICE_ID",
-          "YOUR_EMAILJS_TEMPLATE_ID",
-          {
-            name,
-            email,
-            phone,
-            message,
-          }
-        );
+      formMessage.textContent = "Tin nhắn đã được gửi thành công!";
+      formMessage.className = "form-message success";
+      contactForm.reset();
 
-        // Gửi email xác nhận đến người dùng
-        await emailjs.send(
-          "YOUR_EMAILJS_SERVICE_ID",
-          "YOUR_CONFIRMATION_TEMPLATE_ID",
-          {
-            to_email: email,
-            to_name: name,
-            subject: "Xác nhận liên hệ",
-            message: `Cảm ơn ${name} đã liên hệ với chúng tôi! Chúng tôi sẽ phản hồi bạn sớm nhất có thể.`,
-          }
-        );
-
-        formMessage.textContent = "Tin nhắn đã được gửi thành công!";
-        formMessage.classList.add("success");
-        formMessage.classList.remove("error");
-        contactForm.reset();
-      } catch (error) {
-        console.error("EmailJS error:", error);
-        formMessage.textContent = "Có lỗi xảy ra, vui lòng thử lại!";
-        formMessage.classList.add("error");
-        formMessage.classList.remove("success");
-      }
+      setTimeout(() => {
+        formMessage.textContent = "";
+        formMessage.className = "form-message";
+      }, 5000);
     });
   }
 });

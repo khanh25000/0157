@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Đăng Nhập - Cổng Thông Tin Việc Làm</title>
+    <title>Đăng Nhập</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -247,7 +247,6 @@
     </div>
 
     <script>
-      // Particle effect
       const canvas = document.getElementById("particles");
       const ctx = canvas.getContext("2d");
       canvas.width = window.innerWidth;
@@ -301,7 +300,6 @@
       initParticles();
       animateParticles();
 
-      // Toggle password visibility
       const togglePassword = document.getElementById("togglePassword");
       const passwordInput = document.getElementById("password");
       togglePassword.addEventListener("click", () => {
@@ -314,7 +312,6 @@
         togglePassword.classList.toggle("fa-eye-slash");
       });
 
-      // Form submission with credentials check
       document
         .getElementById("loginForm")
         .addEventListener("submit", function (e) {
@@ -331,7 +328,6 @@
           }
         });
 
-      // Parallax effect on mousemove
       document.addEventListener("mousemove", (e) => {
         const video = document.querySelector(".video-bg");
         const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
@@ -339,7 +335,6 @@
         video.style.transform = `scale(1.1) translate(${moveX}px, ${moveY}px)`;
       });
 
-      // Typewriter effect for welcome text
       const welcomeText = document.getElementById("welcomeText");
       const text = "Chào mừng đến với Nhóm 10";
       let i = 0;
